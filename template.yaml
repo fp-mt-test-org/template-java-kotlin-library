@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: template-java-kotlin-library
+  title: Kotlin Library Template
+  description: Create a new Java/Kotlin-based Library
+  tags:
+    - recommended
+    - java
+    - kotlin
+spec:
+  owner: devx@example.com
+  templater: cookiecutter
+  type: library
+  path: '.'
+  schema:
+    required:
+      - component_id
+      - description
+    properties:
+      component_id:
+        title: Name
+        type: string
+        description: template-java-kotlin-library
+      description:
+        title: Description
+        type: string
+        description: Use as the basis for a new Java/Kotlin-based library.
+
