@@ -1,1 +1,0 @@
-# template-java-kotlin-library

@@ -1,6 +1,0 @@
-build:
-  command: ./gradlew build
-flex:
-  version: 0.10.4
-service:
-  name: kotlin-lib
