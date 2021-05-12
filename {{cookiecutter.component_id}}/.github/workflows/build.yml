@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    env:
+      flex: "./.devx-workflows/flex"
+
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: ./install-dev-dependencies.sh
+    - name: Build
+      run: $flex build
