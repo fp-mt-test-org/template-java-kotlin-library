@@ -4,5 +4,10 @@
     "artifact_id": "{{ cookiecutter.component_id }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
     "description": "We promise to update this description /{{cookiecutter.owner}}",
-    "destination": "Hmm"
+    "destination": {
+        "git": {
+            "owner": "some git owner",
+            "name": "some git name"
+        }
+    }
 }
