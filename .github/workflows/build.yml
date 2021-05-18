@@ -21,7 +21,7 @@ jobs:
         fetch-depth: 0
         
     - name: Setup Dev Dependencies
-      run: install-dev-dependencies.sh
+      run: ./install-dev-dependencies.sh
 
     - name: Initial Build & Unit Test
       run:  $flex build
