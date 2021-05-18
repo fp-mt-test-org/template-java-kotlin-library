@@ -5,9 +5,8 @@ metadata:
   description: {{cookiecutter.description | jsonify}}
   annotations:
     github.com/project-slug: {{cookiecutter.destination.git.owner + "/" + cookiecutter.destination.git.name}}
-    backstage.io/techdocs-ref: url:{{cookiecutter.storePath}}
     backstage.io/kubernetes-id: {{cookiecutter.component_id}}
 spec:
-  type: service
+  type: library
   lifecycle: experimental
   owner: {{cookiecutter.owner | jsonify}}
