@@ -21,10 +21,10 @@ jobs:
         fetch-depth: 0
         
     - name: Setup Dev Dependencies
-      run: scripts/setup-dev-dependencies.sh
+      run: setup-dev-dependencies.sh
 
     - name: Initial Build & Unit Test
-      run:  auto_install=1 scripts/build-flex.sh
+      run:  $flex build
 
     - name: Flex Build & Unit, Feature Test
       run: auto_update=0 $flex build-test
