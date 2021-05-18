@@ -27,4 +27,4 @@ jobs:
       run:  $flex build
 
     - name: Flex Build & Unit, Feature Test
-      run: auto_update=0 $flex build-test
+      run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} auto_update=0 $flex build-test
