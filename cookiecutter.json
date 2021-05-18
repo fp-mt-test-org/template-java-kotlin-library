@@ -1,7 +1,8 @@
 {
     "owner": "some owner",
-    "component_id": "",
+    "component_id": "some_component",
     "artifact_id": "{{ cookiecutter.component_id }}",
+    "storePath": "{{ cookiecutter.storePath }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
     "description": "We promise to update this description /{{cookiecutter.owner}}",
     "destination": {
