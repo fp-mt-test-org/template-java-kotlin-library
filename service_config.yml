@@ -1,0 +1,8 @@
+build:
+  command: echo "No build workflow yet"
+test:
+  command: ./test-create-java-kotlin-library.sh
+flex:
+  version: 0.10.4
+service:
+  name: template-java-kotlin-library
