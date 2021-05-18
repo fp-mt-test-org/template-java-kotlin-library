@@ -1,8 +1,8 @@
 {
-    "owner": "some owner",
+    "owner": "Product Infrastructure",
     "component_id": "some_component",
     "artifact_id": "{{ cookiecutter.component_id }}",
-    "store_path": "{{ cookiecutter.store_path }}",
+    "storePath": "url:https://github.com/fp-mt-test-org/{{ cookiecutter.component_id }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
     "description": "We promise to update this description /{{cookiecutter.owner}}",
     "destination": {
