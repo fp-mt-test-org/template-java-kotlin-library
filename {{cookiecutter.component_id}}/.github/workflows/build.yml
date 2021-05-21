@@ -18,6 +18,6 @@ jobs:
     - name: Checkout Source
       uses: actions/checkout@v2
     - name: Install Dependencies
-      run: ./install-dev-dependencies.sh
+      run: ./install-dev-dependencies.sh SETTING=VALUE
     - name: Build
       run: $flex build
