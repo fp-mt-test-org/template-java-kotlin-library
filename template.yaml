@@ -10,7 +10,7 @@ metadata:
     - kotlin
 spec:
   owner: devx@example.com
-  templater: cookiecutter
+  templater: battenberg
   type: library
   path: '.'
   schema:
