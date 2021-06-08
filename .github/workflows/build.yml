@@ -12,19 +12,13 @@ jobs:
     runs-on: ubuntu-20.04
 
     env:
-      flex: .devx-workflows/scripts/user/run-flex.sh
+      flex: flex.sh
 
     steps:
     - name: Checkout Source
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        
-    - name: Setup Dev Dependencies
-      run: ./install-dev-dependencies.sh
 
-    - name: Initial Build & Unit Test
-      run:  $flex build
-
-    - name: Flex Build & Unit, Feature Test
-      run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} auto_update=0 $flex build-test
+    - name: Build
+      run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} auto_update=0 $flex build
