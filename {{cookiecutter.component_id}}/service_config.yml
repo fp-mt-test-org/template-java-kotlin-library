@@ -1,6 +1,7 @@
-build:
-  command: ./gradlew build
 flex:
-  version: 0.10.4
+  version: 0.2.5
+  workflows:
+    build:
+      command: ./gradlew build
 service:
-  name: {{cookiecutter.component_id}}
+  name: '{{cookiecutter.component_id}}'
