@@ -1,14 +1,9 @@
 {
     "owner": "Product Infrastructure",
-    "component_id": "some_component",
+    "component_id": "{{ cookiecutter.component_id }}",
     "artifact_id": "{{ cookiecutter.component_id }}",
     "storePath": "https://github.com/fp-mt-test-org/{{ cookiecutter.component_id }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
     "description": "We promise to update this description /{{cookiecutter.owner}}",
-    "destination": {
-        "git": {
-            "owner": "some git owner",
-            "name": "some git name"
-        }
-    }
+    "destination": {"git":{"owner":"fp-mt-test-org","name":"{{ cookiecutter.component_id }}"}}
 }
