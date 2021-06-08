@@ -86,8 +86,7 @@ echo
 echo "Step $((i=i+1)): Verify Local Build is Successful"
 git clone "https://github.com/fp-mt-test-org/${project_name}.git"
 cd "${project_name}"
-./install-dev-dependencies.sh
-./.devx-workflows/flex build
+./flex.sh build
 echo
 echo "Passed!"
 cd ..
