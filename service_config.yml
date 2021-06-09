@@ -1,7 +1,14 @@
 flex:
-  version: 0.3.0
+  version: 0.5.1
   workflows:
+    pull:
+      command: git pull
     test:
       command: ./test-create-java-kotlin-library.sh
+    push:
+      depends-on: 
+      - pull
+      - test
+      command: git push
 service:
   name: template-java-kotlin-library
