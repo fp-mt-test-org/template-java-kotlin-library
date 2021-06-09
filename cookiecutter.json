@@ -1,6 +1,6 @@
 {
     "owner": "Product Infrastructure",
-    "component_id": "{{ cookiecutter.component_id }}",
+    "component_id": "",
     "artifact_id": "{{ cookiecutter.component_id }}",
     "storePath": "https://github.com/fp-mt-test-org/{{ cookiecutter.component_id }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
