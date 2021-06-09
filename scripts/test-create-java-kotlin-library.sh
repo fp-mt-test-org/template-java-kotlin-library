@@ -17,7 +17,7 @@ echo "Project Name: ${project_name}"
 get_actions_curl_command="curl -sH \"Accept: application/vnd.github.v3+json\" -H \"authorization: Bearer ${GITHUB_TOKEN}\" \"https://api.github.com/repos/fp-mt-test-org/${project_name}/actions/runs\""
 echo
 echo "Step $((i=i+1)): Submit Create Request to Maker Portal"
-template_name="template-java-kotlin-library" project_name="${project_name}" ./create-project.sh
+template_name="template-java-kotlin-library" project_name="${project_name}" ./scripts/create-project.sh
 echo 
 echo
 echo "Step $((i=i+1)): Wait for GitHub Repo to be Created"

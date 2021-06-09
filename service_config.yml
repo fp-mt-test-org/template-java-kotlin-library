@@ -4,7 +4,7 @@ flex:
     pull:
       command: git pull
     test:
-      command: ./test-create-java-kotlin-library.sh
+      command: ./scripts/test-create-java-kotlin-library.sh
     push:
       depends-on: 
       - pull
