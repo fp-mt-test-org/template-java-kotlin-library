@@ -6,6 +6,9 @@ set -o nounset
 
 i=0 # Step counter
 
+echo "=================================="
+echo "TEST: Create library from template"
+echo "=================================="
 echo "Step $((i=i+1)): Generate Unique Project Name"
 random_string=$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 5 ; echo)
 project_name="java-kotlin-lib-test-${random_string}"
@@ -91,3 +94,45 @@ echo
 echo "Passed!"
 cd ..
 rm -fdr "${project_name}"
+echo ""
+echo "=================================="
+echo "TEST: Update library from template"
+echo "=================================="
+i=0
+expected_flex_version_initial='0.5.0'
+expected_flex_version_upgrade='0.5.1'
+repo_name='template-java-kotlin-library-test-template-update'
+
+if [[ -d "${repo_name}" ]]; then
+    rm -fdr "${repo_name}"
+fi
+
+echo "Step $((i=i+1)): Clone repo that was created from template"
+git clone "https://github.com/fp-mt-test-org/${repo_name}.git"
+cd "${repo_name}"
+echo ""
+echo "Step $((i=i+1)): Check current flex version"
+./flex.sh -version
+flex_version=$(./flex.sh -version)
+if [[ "${flex_version}" != "${expected_flex_version_initial}" ]]; then
+    echo "ERROR: flex_version is ${flex_version} but expected ${expected_flex_version_initial}"
+    exit 1
+fi
+
+echo ""
+echo "Step $((i=i+1)): Update repo from updated template"
+./flex.sh update-template
+echo ""
+echo "Step $((i=i+1)): Check the updated flex version"
+./flex.sh -version
+flex_version=$(./flex.sh -version)
+echo ""
+if [[ "${flex_version}" != "${expected_flex_version_upgrade}" ]]; then
+    echo "ERROR: flex_version is ${flex_version} but expected ${expected_flex_version_upgrade}"
+    exit 1
+fi
+echo ""
+echo "Step $((i=i+1)): Cleanup"
+cd ..
+rm -fdr "${repo_name}"
+echo "Pass!"
