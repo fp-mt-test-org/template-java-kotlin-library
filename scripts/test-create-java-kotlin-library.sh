@@ -5,6 +5,8 @@ set -o pipefail
 set -o nounset
 
 i=0 # Step counter
+github_base_url='https://github.com/fp-mt-test-org'
+flex='./flex.sh'
 
 echo "=================================="
 echo "TEST: Create library from template"
@@ -86,15 +88,17 @@ while true; do
     echo
 done
 echo
+
 echo "Step $((i=i+1)): Verify Local Build is Successful"
-git clone "https://github.com/fp-mt-test-org/${project_name}.git"
+git clone "${github_base_url}/${project_name}.git"
 cd "${project_name}"
-./flex.sh build
+"${flex}" build
 echo
 echo "Passed!"
 cd ..
 rm -fdr "${project_name}"
-echo ""
+echo
+
 echo "=================================="
 echo "TEST: Update library from template"
 echo "=================================="
@@ -108,12 +112,12 @@ if [[ -d "${repo_name}" ]]; then
 fi
 
 echo "Step $((i=i+1)): Clone repo that was created from template"
-git clone "https://github.com/fp-mt-test-org/${repo_name}.git"
+git clone "${github_base_url}/${repo_name}.git"
 cd "${repo_name}"
 echo ""
 echo "Step $((i=i+1)): Check current flex version"
-./flex.sh -version
-flex_version=$(./flex.sh -version)
+"${flex}" -version
+flex_version=$("${flex}" -version)
 if [[ "${flex_version}" != "${expected_flex_version_initial}" ]]; then
     echo "ERROR: flex_version is ${flex_version} but expected ${expected_flex_version_initial}"
     exit 1
@@ -121,11 +125,11 @@ fi
 
 echo ""
 echo "Step $((i=i+1)): Update repo from updated template"
-./flex.sh update-template
+"${flex}" update-template
 echo ""
 echo "Step $((i=i+1)): Check the updated flex version"
-./flex.sh -version
-flex_version=$(./flex.sh -version)
+"${flex}" -version
+flex_version=$("${flex}" -version)
 echo ""
 if [[ "${flex_version}" != "${expected_flex_version_upgrade}" ]]; then
     echo "ERROR: flex_version is ${flex_version} but expected ${expected_flex_version_upgrade}"
