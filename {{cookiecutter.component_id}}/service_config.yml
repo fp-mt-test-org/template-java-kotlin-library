@@ -1,5 +1,5 @@
 flex:
-  version: 0.2.6
+  version: 0.3.0
   workflows:
     build:
       command: ./gradlew build
