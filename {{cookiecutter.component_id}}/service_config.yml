@@ -6,6 +6,7 @@ flex:
     build:
       command: ./gradlew build
     update-template:
+      depends-on: setup-dependencies
       command: battenberg upgrade --no-input
 service:
   name: '{{cookiecutter.component_id}}'

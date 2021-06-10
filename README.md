@@ -7,29 +7,20 @@ This is a template for creating new Kotlin library projects.
 ### How to create a new library
 
 1. Go to backstage and select this template from the catalog to create a new library.
-2. Set default branch from `master` to `main`.
-3. Fork the repo
-4. Clone the main library repo locally.
-5. Configure your remotes
-
-    `git remote set-url --push origin your-fork-url-here`
-
-3. Setup dependencies
-
+2. Verify your first build passes successfully.
+3. Set default branch from `master` to `main`.
+5. Clone the new library repo locally.
+7. Setup dependencies
     `flex setup-dependencies`
-
-4. Initialize the template
-
+8. Initialize the template
     `battenberg install https://github.com/fp-mt-test-org/template-java-kotlin-library`
-
-5. Merge: Review & Accept All Incoming Changes
-6. Commit
-7. Push `template` and `main` branches
-
+9. Merge: Review & Accept All Incoming Changes
+10. Test
+    `flex build`
+11. Commit
+12. Push `template` and `main` branches
     `git push origin template`
     `git push origin main`
-
-8. PR/Merge to main repo
 
 ### How to apply template updates
 
