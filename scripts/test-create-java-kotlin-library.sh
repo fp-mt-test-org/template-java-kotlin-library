@@ -89,12 +89,18 @@ while true; do
 done
 echo
 
-echo "Step $((i=i+1)): Verify Local Build is Successful"
+echo "Step $((i=i+1)): Clone locally"
 git clone "${github_base_url}/${project_name}.git"
 cd "${project_name}"
+echo
+echo "Step $((i=i+1)): Initialize the template"
+"${flex}" initialize-template
+echo
+echo "Step $((i=i+1)): Verify Local Build is Successful"
 "${flex}" build
 echo
 echo "Passed!"
+echo "Step $((i=i+1)): Cleanup"
 cd ..
 rm -fdr "${project_name}"
 echo

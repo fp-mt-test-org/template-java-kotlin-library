@@ -1,7 +1,7 @@
 flex:
   version: 0.5.1
   workflows:
-    setup-depdendencies:
+    setup-dependencies:
       command: pip install battenberg
     initialize-template:
       depends-on: setup-dependencies
