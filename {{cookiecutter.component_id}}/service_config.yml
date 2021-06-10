@@ -3,9 +3,6 @@ flex:
   workflows:
     setup-dependencies:
       command: pip3 install battenberg
-    initialize-template:
-      depends-on: setup-dependencies
-      command: if ! [[ "$(git branch)" =~ "template" ]]; then { echo "yes" } | battenberg install https://github.com/fp-mt-test-org/template-java-kotlin-library; fi
     build:
       command: ./gradlew build
     update-template:
