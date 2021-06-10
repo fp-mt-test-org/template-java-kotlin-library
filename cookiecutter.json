@@ -5,4 +5,5 @@
     "storePath": "https://github.com/fp-mt-test-org/{{ cookiecutter.component_id }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
     "description": "We promise to update this description /{{cookiecutter.owner}}",
+    "destination": {"git":{"owner":"fp-mt-test-org","name":"{{ cookiecutter.component_id }}"}}
 }
