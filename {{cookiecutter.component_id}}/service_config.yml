@@ -2,7 +2,7 @@ flex:
   version: 0.5.1
   workflows:
     setup-dependencies:
-      command: pip install battenberg
+      command: pip3 install battenberg
     initialize-template:
       depends-on: setup-dependencies
       command: if ! [[ "$(git branch)" =~ "template" ]]; then battenberg install https://github.com/fp-mt-test-org/template-java-kotlin-library; fi
