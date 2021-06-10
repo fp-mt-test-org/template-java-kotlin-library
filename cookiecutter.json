@@ -1,4 +1,5 @@
 {
+    "_template": "https://github.com/fp-mt-test-org/template-java-kotlin-library",
     "owner": "Product Infrastructure",
     "component_id": "",
     "artifact_id": "{{ cookiecutter.component_id }}",
