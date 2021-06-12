@@ -4,37 +4,54 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-# This codeblock answers the prompts issued by battenberg below.
-{
-    # You've downloaded .../.cookiecutters/template-java-kotlin-library before.
-    # Is it okay to delete and re-download it? [yes]:
-    echo "1";
-    sleep 1;
+git config --global user.name "CI"
+git config --global user.email "ci@ci.com"
 
-    # owner [Product Infrastructure]:
-    echo "Product Infrastructure";
-    sleep 1;
+battenberg_output=$(./battenberg-install-template.sh 2>&1 || true)
 
-    # component_id []:
-    echo "${project_name}"
-    sleep 1;
+echo "${battenberg_output}"
 
-    # artifact_id [java-kotlin-lib-test-*****]:
+cat .cookiecutter.json
+
+# The "|| true" above is to prevent this script from failing
+# in the event that initialize-template.sh fails due to errors,
+# such as merge conflicts.
+
+echo
+echo "Checking for MergeConflictExceptions..."
+echo
+if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
+    template_context_file='.cookiecutter.json'
+    echo "Merge Conflict Detected, attempting to resolve!"
+
+    # Remove all instances of:
+    # <<<<<<< HEAD
+    # ...
+    # =======
+    
+    # And
+
+    # Remove all instances of:
+    # >>>>>>> 0000000000000000000000000000000000000000
+    
+    cookiecutter_json_updated=$(cat ${template_context_file} | \
+        perl -0pe 's/<<<<<<< HEAD[\s\S]+?=======//gms' | \
+        perl -0pe 's/>>>>>>> [a-z0-9]{40}//gms')
+
+    echo "${cookiecutter_json_updated}" > "${template_context_file}"
     echo
-    sleep 1;
-
-    # storePath [https://github.com/fp-mt-test-org/java-kotlin-lib-test-*****]:
+    cat .cookiecutter.json
     echo
-    sleep 1;
+    echo "Conflicts resolved, committing..."
+    git add "${template_context_file}"
+    git status
+    git diff flex.sh
+    git diff initialize-template.sh
+    git commit -m "fix: Resolved merge conflicts with template."
+else
+    echo "No merge conflicts detected."
+    exit 1
+fi
 
-    # java_package_name [javakotlinlibtest*****]:
-    echo
-    sleep 1;
-
-    # description [*****]:
-    echo "This project was created from the ${template_name} template."
-    sleep 1;
-
-    # destination [default]:
-    echo "{\"git\":{\"owner\":\"${owner_name}\",\"name\":\"${project_name}\"}}"
-} | battenberg install "${github_base_url}/${template_name}"
+echo
+cat .cookiecutter.json
