@@ -58,13 +58,19 @@ fi
 
 echo
 cat "${template_context_file}"
+
 echo
 echo "Removing template initialization scripts that are no longer needed..."
 rm "${install_script}"
 rm "${initialize_template_script}"
 echo "Done!"
 echo
+
 echo "Committing..."
 git add "${install_script}"
 git add "${initialize_template_script}"
 git commit -m "Removes template initialization scripts that are no longer needed."
+
+echo "Pushing template and main branches to remote..."
+git push origin template
+git push origin master
