@@ -4,8 +4,14 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+# These tests are based on the steps outlined in the README.
+# The purpose is to perform the same actions the README is asking
+# people to do so we can catch any regressions with it.
+
 i=0 # Step counter
-github_base_url='https://github.com/fp-mt-test-org'
+owner_name='fp-mt-test-org'
+github_base_url="https://github.com/${owner_name}"
+template_name="template-java-kotlin-library"
 flex='./flex.sh'
 
 echo "=================================="
@@ -19,7 +25,7 @@ echo "Project Name: ${project_name}"
 get_actions_curl_command="curl -sH \"Accept: application/vnd.github.v3+json\" -H \"authorization: Bearer ${GITHUB_TOKEN}\" \"https://api.github.com/repos/fp-mt-test-org/${project_name}/actions/runs\""
 echo
 echo "Step $((i=i+1)): Submit Create Request to Maker Portal"
-template_name="template-java-kotlin-library" project_name="${project_name}" ./scripts/create-project.sh
+template_name="${template_name}" project_name="${project_name}" ./scripts/create-project.sh
 echo 
 echo
 echo "Step $((i=i+1)): Wait for GitHub Repo to be Created"
@@ -93,11 +99,69 @@ echo "Step $((i=i+1)): Clone locally"
 git clone "${github_base_url}/${project_name}.git"
 cd "${project_name}"
 echo
-echo "Step $((i=i+1)): Initialize the template"
-"${flex}" initialize-template
+echo "Step $((i=i+1)): Setup dependencies"
+"${flex}" setup-dependencies
+echo
+echo "Step $((i=i+1)): Initialize the template!"
+
+battenberg_output=$( \
+    github_base_url="${github_base_url}" \
+    template_name="${template_name}" \
+    project_name="${project_name}" \
+    owner_name="${owner_name}" \
+    ../scripts/initialize-template.sh 2>&1 || true \
+)
+
+# The "|| true" above is to prevent this script from failing
+# in the event that initialize-template.sh fails due to errors,
+# such as merge conflicts.
+
+echo
+echo "${battenberg_output}"
+echo
+echo "Checking for MergeConflictExceptions..."
+echo
+if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
+    echo "Merge Conflict Detected, attempting to resolve!"
+    
+    # Expecting 2 conflicts in .cookiecutter.json...
+
+    # Remove all instances of:
+    # <<<<<<< HEAD
+    # ...
+    # =======
+    
+    # And
+
+    # Remove all instances of:
+    # >>>>>>> 0000000000000000000000000000000000000000
+    cookiecutter_json_updated=$(cat .cookiecutter.json | \
+        perl -0pe 's/<<<<<<< HEAD[\s\S]+?=======//gms' | \
+        perl -0pe 's/>>>>>>> [a-z0-9]{40}//gms')
+
+    echo "${cookiecutter_json_updated}" > .cookiecutter.json
+    echo
+    echo "Conflicts resolved, committing..."
+    git add .cookiecutter.json
+    git commit -m "fix: Resolved merge conflicts with template."
+else
+    echo "No merge conflicts detected."
+    exit 1
+fi
+
 echo
 echo "Step $((i=i+1)): Verify Local Build is Successful"
 "${flex}" build
+echo
+
+echo "Pushing template and master branches to remote..."
+git push origin template
+git push origin master
+echo ""
+
+echo "Attempting update-template..."
+"${flex}" update-template
+
 echo
 echo "Passed!"
 echo "Step $((i=i+1)): Cleanup"
