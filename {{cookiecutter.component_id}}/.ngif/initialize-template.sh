@@ -11,9 +11,7 @@ fi
 
 template_context_file='.cookiecutter.json'
 install_script='battenberg-install-template.sh'
-initialize_template_script='initialize-template.sh'
-
-battenberg_output=$(./${install_script} 2>&1 || true)
+battenberg_output=$(./.ngif/${install_script} 2>&1 || true)
 
 echo "${battenberg_output}"
 
@@ -58,18 +56,6 @@ fi
 
 echo
 cat "${template_context_file}"
-
-echo
-echo "Removing template initialization scripts that are no longer needed..."
-rm "${install_script}"
-rm "${initialize_template_script}"
-echo "Done!"
-echo
-
-echo "Committing..."
-git add "${install_script}"
-git add "${initialize_template_script}"
-git commit -m "Removes template initialization scripts that are no longer needed."
 
 echo "Pushing template and main branches to remote..."
 git push origin template
