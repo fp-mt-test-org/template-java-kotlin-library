@@ -9,7 +9,9 @@ if [[ $CI ]]; then
     git config user.email "ci@ci.com"
 fi
 
-battenberg_output=$(./battenberg-install-template.sh 2>&1 || true)
+install_script='battenberg-install-template.sh'
+
+battenberg_output=$(./${install_script} 2>&1 || true)
 
 echo "${battenberg_output}"
 
@@ -46,9 +48,6 @@ if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
     echo
     echo "Conflicts resolved, committing..."
     git add "${template_context_file}"
-    git status
-    git diff flex.sh
-    git diff initialize-template.sh
     git commit -m "fix: Resolved merge conflicts with template."
 else
     echo "No merge conflicts detected."
@@ -57,3 +56,9 @@ fi
 
 echo
 cat .cookiecutter.json
+echo
+echo "Removing template initialization scripts that are no longer needed..."
+rm "${install_script}"
+rm initialize-template.sh
+echo "Done!"
+echo
