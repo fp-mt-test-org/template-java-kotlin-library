@@ -1,6 +1,8 @@
 flex:
   version: 0.5.1
   workflows:
+    pull:
+      command: git fetch origin template && git fetch origin master
     setup-dependencies:
       command: pip3 install battenberg
     setup-repo:
