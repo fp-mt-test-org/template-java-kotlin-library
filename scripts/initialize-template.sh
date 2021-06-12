@@ -19,6 +19,10 @@ set -o nounset
     echo "${project_name}"
     sleep 1;
 
+    # repo_owner [fp-mt-test-org]:
+    echo
+    sleep 1;
+
     # artifact_id [java-kotlin-lib-test-*****]:
     echo
     sleep 1;

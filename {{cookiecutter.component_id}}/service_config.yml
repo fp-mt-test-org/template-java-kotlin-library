@@ -5,7 +5,7 @@ flex:
       command: pip3 install battenberg
     setup-repo:
       depends-on: setup-dependencies
-      command: ./.ngif/setup-repo.sh
+      command: owner_name={{cookiecutter.repo_owner}} ./.ngif/setup-repo.sh
     update-template:
       depends-on: setup-dependencies
       command: battenberg upgrade --no-input
