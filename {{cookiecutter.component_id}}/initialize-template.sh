@@ -9,13 +9,15 @@ if [[ $CI ]]; then
     git config user.email "ci@ci.com"
 fi
 
+template_context_file='.cookiecutter.json'
 install_script='battenberg-install-template.sh'
+initialize_template_script='initialize-template.sh'
 
 battenberg_output=$(./${install_script} 2>&1 || true)
 
 echo "${battenberg_output}"
 
-cat .cookiecutter.json
+cat "${template_context_file}"
 
 # The "|| true" above is to prevent this script from failing
 # in the event that initialize-template.sh fails due to errors,
@@ -25,7 +27,7 @@ echo
 echo "Checking for MergeConflictExceptions..."
 echo
 if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
-    template_context_file='.cookiecutter.json'
+    
     echo "Merge Conflict Detected, attempting to resolve!"
 
     # Remove all instances of:
@@ -44,7 +46,7 @@ if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
 
     echo "${cookiecutter_json_updated}" > "${template_context_file}"
     echo
-    cat .cookiecutter.json
+    cat "${template_context_file}"
     echo
     echo "Conflicts resolved, committing..."
     git add "${template_context_file}"
@@ -55,10 +57,14 @@ else
 fi
 
 echo
-cat .cookiecutter.json
+cat "${template_context_file}"
 echo
 echo "Removing template initialization scripts that are no longer needed..."
 rm "${install_script}"
-rm initialize-template.sh
+rm "${initialize_template_script}"
 echo "Done!"
 echo
+echo "Committing..."
+git add "${install_script}"
+git add "${initialize_template_script}"
+git commit -m "Removes template initialization scripts that are no longer needed."
