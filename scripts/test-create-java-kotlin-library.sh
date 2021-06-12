@@ -154,11 +154,6 @@ echo "Step $((i=i+1)): Verify Local Build is Successful"
 "${flex}" build
 echo
 
-echo "Pushing template and master branches to remote..."
-git push origin template
-git push origin master
-echo ""
-
 echo "Attempting update-template..."
 "${flex}" update-template
 

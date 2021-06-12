@@ -20,8 +20,5 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Initialize Template
-      run: $flex initialize-template
-
     - name: Build
       run: $flex build
