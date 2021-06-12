@@ -5,6 +5,6 @@
     "artifact_id": "{{ cookiecutter.component_id }}",
     "storePath": "https://github.com/fp-mt-test-org/{{ cookiecutter.component_id }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
-    "description": "We promise to update this description /{{cookiecutter.owner}}",
+    "description": "This project was created from the template-java-kotlin-library template.",
     "destination": {"git":{"owner":"fp-mt-test-org","name":"{{ cookiecutter.component_id }}"}}
 }
