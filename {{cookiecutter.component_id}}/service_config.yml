@@ -3,10 +3,13 @@ flex:
   workflows:
     setup-dependencies:
       command: pip3 install battenberg
-    build:
-      command: ./gradlew build
+    initialize-template:
+      depends-on: setup-dependencies
+      command: github_base_url=https://github.com/fp-mt-test-org template_name=template-java-kotlin-library project_name={{cookiecutter.component_id}} owner_name=fp-mt-test-org ./initialize-template.sh
     update-template:
       depends-on: setup-dependencies
       command: battenberg upgrade --no-input
+    build:
+      command: ./gradlew build
 service:
   name: '{{cookiecutter.component_id}}'
