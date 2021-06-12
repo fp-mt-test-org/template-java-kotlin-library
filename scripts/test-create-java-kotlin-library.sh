@@ -122,9 +122,8 @@ echo
 echo "Checking for MergeConflictExceptions..."
 echo
 if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
+    template_context_file='.cookiecutter.json'
     echo "Merge Conflict Detected, attempting to resolve!"
-    
-    # Expecting 2 conflicts in .cookiecutter.json...
 
     # Remove all instances of:
     # <<<<<<< HEAD
@@ -135,14 +134,15 @@ if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
 
     # Remove all instances of:
     # >>>>>>> 0000000000000000000000000000000000000000
-    cookiecutter_json_updated=$(cat .cookiecutter.json | \
+    
+    cookiecutter_json_updated=$(cat ${template_context_file} | \
         perl -0pe 's/<<<<<<< HEAD[\s\S]+?=======//gms' | \
         perl -0pe 's/>>>>>>> [a-z0-9]{40}//gms')
 
-    echo "${cookiecutter_json_updated}" > .cookiecutter.json
+    echo "${cookiecutter_json_updated}" > "${template_context_file}"
     echo
     echo "Conflicts resolved, committing..."
-    git add .cookiecutter.json
+    git add "${template_context_file}"
     git commit -m "fix: Resolved merge conflicts with template."
 else
     echo "No merge conflicts detected."
