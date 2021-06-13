@@ -9,9 +9,9 @@ echo "Determining if the template has been initialized..."
 git_branches=$(git branch)
 
 if ! [[ "${git_branches}" =~ "template" ]]; then
-    checkout_output=$(git checkout template || true)
+    checkout_output=$(git checkout template 2>&1 || true)
 
-    if [[ ${checkout_output} == *"error: pathspec 'template' did not match any file(s) known to git"* ]]; then
+    if [[ ${checkout_output} =~ "error: pathspec 'template' did not match any file(s) known to git" ]]; then
         echo "Template needs to be initialized, initializing..."
         ./.ngif/initialize-template.sh
     else
