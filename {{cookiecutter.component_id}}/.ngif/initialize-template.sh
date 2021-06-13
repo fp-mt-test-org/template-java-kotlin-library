@@ -4,7 +4,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-if [[ $CI ]]; then
+if [[ ${CI:-} ]]; then
     git config user.name "CI"
     git config user.email "ci@ci.com"
 fi
