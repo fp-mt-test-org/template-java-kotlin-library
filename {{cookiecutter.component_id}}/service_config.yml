@@ -9,7 +9,9 @@ flex:
       depends-on: setup-dependencies
       command: template_name=template-java-kotlin-library github_base_url=https://github.com/fp-mt-test-org ./.ngif/setup-repo.sh
     update-template:
-      depends-on: setup-dependencies
+      depends-on:
+        - setup-dependencies
+        - pull
       command: battenberg upgrade --no-input
     build:
       depends-on: setup-repo
