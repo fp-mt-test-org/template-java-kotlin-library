@@ -115,7 +115,6 @@ echo "Step $((i=i+1)): Cleanup"
 cd ..
 echo "Deleteing ${project_name} locally..."
 rm -fdr "${project_name}"
-echo
 echo "Deleteing ${project_name} remotely..."
 curl \
   -X DELETE \
