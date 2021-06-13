@@ -24,6 +24,7 @@ This is a template for creating new Kotlin library projects.
 ### Getting Started
 1. Fork this repo
 2. Update your remotes:
+
     `git remote set-url --push origin your-fork-url`
 
 ### Development Workflows
