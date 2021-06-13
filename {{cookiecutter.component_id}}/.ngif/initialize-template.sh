@@ -48,6 +48,8 @@ if [[ "${battenberg_output}" =~ "MergeConflictException" ]]; then
     echo
     echo "Conflicts resolved, committing..."
     git add "${template_context_file}"
+    git diff catalog-info.yaml
+    git diff service_info.yml
     git commit -m "fix: Resolved merge conflicts with template."
 else
     echo "No merge conflicts detected."
