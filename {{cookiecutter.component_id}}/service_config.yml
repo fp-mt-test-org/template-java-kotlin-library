@@ -7,7 +7,7 @@ flex:
       command: pip3 install battenberg
     setup-repo:
       depends-on: setup-dependencies
-      command: template_name=template-java-kotlin-library github_base_url=https://github.com/fp-mt-test-org owner_name={{cookiecutter.repo_owner}} project_name={{cookiecutter.component_id}} ./.ngif/setup-repo.sh
+      command: template_name=template-java-kotlin-library github_base_url=https://github.com/fp-mt-test-org ./.ngif/setup-repo.sh
     update-template:
       depends-on: setup-dependencies
       command: battenberg upgrade --no-input

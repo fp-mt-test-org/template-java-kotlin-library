@@ -9,6 +9,9 @@ echo "GIT JSON:"
 echo "${git_json}"
 echo
 
+template_context_file='.cookiecutter.json'
+template_context_path="./${template_context_file}"
+
 # This codeblock answers the prompts issued by battenberg below.
 {
     if [[ -d "$HOME/.cookiecutters" ]]; then
@@ -19,34 +22,34 @@ echo
     fi
 
     # owner [Product Infrastructure]:
-    echo "Product Infrastructure";
+    jq '.owner' "${template_context_path}";
     sleep 1;
 
     # component_id []:
-    echo "${project_name}"
+    jq '.component_id' "${template_context_path}"
     sleep 1;
 
     # repo_owner [fp-mt-test-org]:
-    echo
+    jq '.repo_owner' "${template_context_path}"
     sleep 1;
 
     # artifact_id [java-kotlin-lib-test-*****]:
-    echo
+    jq '.artifact_id' "${template_context_path}"
     sleep 1;
 
     # storePath [https://github.com/fp-mt-test-org/java-kotlin-lib-test-*****]:
-    echo
+    jq '.storePath' "${template_context_path}"
     sleep 1;
 
     # java_package_name [javakotlinlibtest*****]:
-    echo
+    jq '.java_package_name' "${template_context_path}"
     sleep 1;
 
     # description [*****]:
-    echo
+    jq '.description' "${template_context_path}"
     sleep 1;
 
     # destination [default]:
-    echo "${git_json}"
+    jq '.destination' "${template_context_path}"
     sleep 1;
 } | battenberg install "${github_base_url}/${template_name}"
