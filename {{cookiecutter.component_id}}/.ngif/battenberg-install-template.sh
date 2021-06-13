@@ -4,11 +4,6 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-git_json="{\"git\":{\"owner\":\"${owner_name}\",\"name\":\"${project_name}\"}}"
-echo "GIT JSON:"
-echo "${git_json}"
-echo
-
 template_context_file='.cookiecutter.json'
 template_context_path="./${template_context_file}"
 
