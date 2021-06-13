@@ -8,9 +8,8 @@ This is a template for creating new Kotlin library projects.
 
 1. Go to backstage, select this template from the catalog to create a new library.
 2. Verify your first build passes successfully.
-3. Set default branch from `master` to `main`.
-5. Clone the new library repo locally.
-10. Test
+3. Clone the new library repo locally.
+4. Test
     `flex build`
 
 ### How to apply template updates
