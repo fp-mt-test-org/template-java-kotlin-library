@@ -21,4 +21,4 @@ jobs:
         fetch-depth: 0
 
     - name: Build
-      run: newvar=1 $flex build
+      run: $flex build
