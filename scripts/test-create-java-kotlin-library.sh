@@ -20,6 +20,7 @@ echo "=================================="
 echo "Step $((i=i+1)): Generate Unique Project Name"
 random_string=$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 5 ; echo)
 project_name="java-kotlin-lib-test-${random_string}"
+repository_path="${github_base_url}/${project_name}"
 echo "Project Name: ${project_name}"
 
 get_actions_curl_command="curl -sH \"Accept: application/vnd.github.v3+json\" -H \"authorization: Bearer ${GITHUB_TOKEN}\" \"https://api.github.com/repos/fp-mt-test-org/${project_name}/actions/runs\""
@@ -96,7 +97,7 @@ done
 echo
 
 echo "Step $((i=i+1)): Clone locally"
-git clone "${github_base_url}/${project_name}.git"
+git clone "${repository_path}.git"
 cd "${project_name}"
 echo
 
@@ -112,7 +113,17 @@ echo
 echo "Passed!"
 echo "Step $((i=i+1)): Cleanup"
 cd ..
+echo "Deleteing ${project_name} locally..."
 rm -fdr "${project_name}"
+echo
+echo "Deleteing ${project_name} remotely..."
+curl \
+  -X DELETE \
+  -H "Accept: application/vnd.github.v3+json" \
+  -H "Authorization: token ${GITHUB_TOKEN}" \
+   "https://api.github.com/repos/${owner_name}/${project_name}"
+echo
+echo "Done!"
 echo
 
 echo "=================================="
