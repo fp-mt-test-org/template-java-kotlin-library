@@ -4,6 +4,9 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+# Purpose of this file is to execute the battenberg install command
+# and feed in the values previously configured in the context file.
+
 template_context_file='.cookiecutter.json'
 template_context_path="./${template_context_file}"
 
