@@ -1,6 +1,10 @@
-## Build
+## Build a Release
 
     flex build
+
+## Publish a Release
+
+    flex publish
 
 ## Update from Template
 
