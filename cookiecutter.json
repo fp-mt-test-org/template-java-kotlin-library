@@ -7,5 +7,4 @@
     "storePath": "https://github.com/{{ cookiecutter.repo_owner }}/{{ cookiecutter.component_id }}",
     "java_package_name": "{{ cookiecutter.component_id|replace('-', '') }}",
     "description": "This project was created from the template-java-kotlin-library template.",
-    "destination": {"git":{"owner":"{{ cookiecutter.repo_owner }}","name":"{{ cookiecutter.component_id }}"}}
 }
